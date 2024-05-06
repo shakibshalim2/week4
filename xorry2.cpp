@@ -1,19 +1,33 @@
 #include<bits/stdc++.h>
 using namespace std;
-int main() {
+void Xorry(int n){
+
+    int count=0;
+    int i=1;
+    while(i*2<=n){
+        i*=2;
+        count++;
+    }
+    bool flag=true;
+    int ans=1;
+    for(int i=count-1;i>=0;i--){
+        if(n&(1<<i)){
+            flag=false;
+        }
+        else{
+            if(!flag)
+                ans=ans*2;
+        }
+       
+    }
+     cout<<ans<<endl;
+}
+int main(){
     int t;
     cin>>t;
     while(t--){
-        long long x;
-        cin>>x;
-        long long d=x&-x;
-        long long c=0;
-        for(long long a=0;a<=x;a+=d){
-            long long b=a^x;
-            if(a<=b&&b<=x){
-                c++;
-            }
-        }
-        cout<<c<<endl;
+        int n;
+        cin>>n;
+        Xorry(n);
     }
 }
