@@ -1,22 +1,24 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-pair<int,int>s(int x){
-    int bt=0;
-    while((1<<bt)<=x){
-        bt++;
+
+pair<int, int> solve(int x) {
+    int b = 0;
+    while ((1 << b) <= x) {
+        b++;
     }
-    int ms=1<<(bt-1);
-    int a=ms;
-    int b=a^x;
-    return{b,a};
+    int bs = 1 << (b - 1);
+    int a = bs;
+    int y = a ^ x; 
+    return {y, a};
 }
-int main(){
+
+int main() {
     int t;
-    cin>>t;
-    while(t--){
+    cin >> t;
+    while (t--) {
         int x;
-        cin>>x;
-        pair<int,int>ans=s(x);
-        cout<<ans.first<<" "<<ans.second<<endl;
+        cin >> x;
+        pair<int, int> ans = solve(x);
+        cout << ans.first << " " << ans.second << endl;
     }
 }
