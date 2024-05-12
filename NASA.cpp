@@ -1,21 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 const int maxN = (1 << 15);
-vector<int> all_palindromes;
-
-void mark_palindrome() {
-    for (int i = 0; i < maxN; i++) {
+vector<int>all_pal;
+void pal() {
+    for(int i=0;i<maxN;i++) {
         string s = to_string(i);
-        bool is_palindrome = true;
-        for (int j = 0, k = s.length() - 1; j < k; j++, k--) {
-            if (s[j] != s[k]) {
-                is_palindrome = false;
+        int l = s.length();
+        bool is = true;
+        for (int i = 0;i < (l / 2);i++) {
+            if (s[i] != s[l - i - 1]) {
+                is = false;
                 break;
             }
         }
-        if (is_palindrome) {
-            all_palindromes.push_back(i);
+        if (is) {
+            all_pal.push_back(i);
         }
     }
 }
@@ -24,34 +23,31 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
-    mark_palindrome();
+    pal();
 
     int t;
     cin >> t;
     while (t--) {
         int n;
         cin >> n;
-        vector<int> cnt(maxN, 0);
-        vector<int> a(n);
-
-        for (int i = 0; i < n; i++) {
-            cin >> a[i];
-            cnt[a[i]]++;
+        vector<int> cnt(maxN), a;
+        for (int i = 0;i < n;i++) {
+            int x;
+            cin >> x;
+            cnt[x]++;
+            a.push_back(x);
         }
 
-        long long ans = 0;
+        long long ans = n;
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < all_palindromes.size(); j++) {
-                int xor_value = (a[i] ^ all_palindromes[j]);
-                if (xor_value < maxN) {
-                    ans += cnt[xor_value];
-                }
+        for (int i = 0;i < n;i++) {
+            for (int j = 0;j < all_pal.size();j++) {
+                int curr = (a[i] ^ all_pal[j]);
+                ans += cnt[curr];
             }
-            cnt[a[i]]--;
         }
 
-        cout << ans << '\n';
+        cout << (ans / 2) << '\n';
     }
     return 0;
 }
